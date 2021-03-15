@@ -7,7 +7,6 @@ replace (
 )
 
 require (
-	gait_darwin_server v1.0.0
 	github.com/astaxie/beego v1.12.2
 	github.com/auth0/go-jwt-middleware v0.0.0-20190805220309-36081240882b
 	github.com/coreos/etcd v3.3.22+incompatible
