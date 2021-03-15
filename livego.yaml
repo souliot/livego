@@ -1,0 +1,18 @@
+api_addr: :8090
+config_file: livego.yaml
+etcdendpoints:
+  - 192.168.0.8:2379
+flv_dir: tmp
+gop_num: 1
+hls_addr: :7002
+hls_keep_after_end: false
+httpflv_addr: :7001
+level: info
+nodeid: 5f1e6b3ec6b3ea8bf11c2210
+read_timeout: 10
+rtmp_addr: :1935
+server:
+  - appname: live
+    hls: false
+    live: true
+write_timeout: 10
