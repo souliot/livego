@@ -1,15 +1,15 @@
 package srv
 
 import (
-	"livego/configure"
 	"encoding/json"
+	"livego/configure"
+	"os"
 	e "public/entities"
-	"public/models/command"
 	"public/libs_go/gateway/master"
 	"public/libs_go/gateway/service"
 	"public/libs_go/socketlib"
 	"public/libs_go/tcpclientlib"
-	"os"
+	"public/models/command"
 	"runtime"
 	"strconv"
 	"time"
@@ -25,7 +25,7 @@ import (
 var (
 	serverProxy         = new(ServerProxy)
 	sysCommand          = socketlib.NewCommand()
-	version             = "5.14.4.1216"
+	version             = "5.1.0.0"
 	serviceType         = strconv.Itoa(e.AccountTypeRtmp)
 	loginAccount        = new(e.Account)
 	isGetBusinessServer = false
