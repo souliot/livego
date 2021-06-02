@@ -3,12 +3,9 @@ package srv
 import (
 	"livego/configure"
 	"livego/protocol/rtmp"
-	e "public/entities"
-	"public/libs_go/servicelib"
-	conf "public/libs_go/servicelib/config"
-	"public/libs_go/servicelib/logcollect"
-	"public/libs_go/servicelib/monitor"
 	"os"
+	e "public/entities"
+	conf "public/libs_go/servicelib/config"
 	"time"
 
 	"github.com/astaxie/beego/logs"
@@ -43,6 +40,15 @@ func (s *Service) UpdateGlobalSetting(c interface{}) (clickaddress string) {
 	return globals.ClickAddress
 }
 
+func (s *Service) Metrics() (data []byte) {
+	// data, err := json.Marshal(loginAccount)
+	// if err != nil {
+	// 	return make([]byte, 0)
+	// }
+	data = make([]byte, 0)
+	return
+}
+
 func (s *Service) Start(c *conf.Setting) (port int, err error) {
 	logs.Info("版本：", version)
 	stream := rtmp.NewRtmpStream()
@@ -54,11 +60,7 @@ func (s *Service) Start(c *conf.Setting) (port int, err error) {
 
 func (s *Service) Stop() {
 	go serverProxy.Stop()
-	monitor.StopMonitor()
-	// 停止日志收集
-	logcollect.StopLog()
 	// 解除注册
-	servicelib.UnRegister()
 	time.Sleep(300 * time.Millisecond)
 	os.Exit(0)
 	return
@@ -66,13 +68,9 @@ func (s *Service) Stop() {
 
 func NewConfig() *conf.Config {
 	return &conf.Config{
-		EtcdEndpoints: configure.Config.GetStringSlice("etcdendpoints"),
-		ServiceType:   serviceType,
-		// ClickAddress:   "tcp://192.168.0.8:9000?username=default&password=watrix888",
+		EtcdEndpoints:  configure.Config.GetStringSlice("etcdendpoints"),
+		ServiceType:    serviceType,
 		MonitorService: true,
-		MonitorSystem:  false,
-		LogCollect:     true,
 		// LogPath:        "logs",                 // default 'logs'
-		// LogCollectPath: []string{"logs/*.log"}, // default LogPath/*.log
 	}
 }

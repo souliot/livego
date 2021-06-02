@@ -2,13 +2,13 @@ package srv
 
 import (
 	"encoding/json"
+	"os"
 	e "public/entities"
-	"public/models/command"
 	"public/libs_go/darwinfslib"
 	"public/libs_go/gateway/service"
 	"public/libs_go/servicelib"
 	"public/libs_go/socketlib"
-	"os"
+	"public/models/command"
 	"time"
 
 	"github.com/astaxie/beego/logs"

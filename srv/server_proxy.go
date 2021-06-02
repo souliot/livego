@@ -25,7 +25,7 @@ import (
 var (
 	serverProxy         = new(ServerProxy)
 	sysCommand          = socketlib.NewCommand()
-	version             = "5.1.0.0"
+	version             = "5.1.1.0"
 	serviceType         = strconv.Itoa(e.AccountTypeRtmp)
 	loginAccount        = new(e.Account)
 	isGetBusinessServer = false
@@ -62,7 +62,6 @@ func getAccountId() (id string) {
 	id = configure.Config.GetString("NodeId")
 	if id == "" {
 		id = primitive.NewObjectID().Hex()
-		id = "5f1e6b3ec6b3ea8bf11c2210"
 		configure.Config.Set("NodeId", id)
 		err := configure.Config.WriteConfigAs(configure.Config.ConfigFileUsed())
 		if err != nil {

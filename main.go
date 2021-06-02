@@ -1,9 +1,9 @@
 package main
 
 import (
-	"public/libs_go/servicelib"
 	"os"
 	"os/signal"
+	"public/libs_go/servicelib"
 	"syscall"
 	"time"
 
@@ -31,11 +31,14 @@ func main() {
     | |   | \ \ / / _ \ |  _ / _ \ 
     | |___| |\ V /  __/ |_| | (_) |
     |_____|_| \_/ \___|\____|\___/ 
-        version: %s
-	`, VERSION)
+	`)
 
 	srv.Scfg = srv.NewConfig()
-	servicelib.WatchPreSetting(srv.Ser, srv.Scfg)
+	err := servicelib.WatchPreSetting(srv.Ser, srv.Scfg)
+	if err != nil {
+		logs.Error(err)
+		return
+	}
 	chSig := make(chan os.Signal)
 	signal.Notify(chSig, syscall.SIGINT, syscall.SIGKILL, syscall.SIGHUP, syscall.SIGTERM, syscall.SIGQUIT)
 	_ = <-chSig
