@@ -36,7 +36,6 @@ func (s *Service) UpdateGlobalSetting(c interface{}) (clickaddress string) {
 	globals = c.(*e.ServerSetting)
 	etcdEndPoints := configure.Config.GetStringSlice("etcdendpoints")
 	initEtcd(etcdEndPoints)
-	go GetComServer()
 	return globals.ClickAddress
 }
 
@@ -46,6 +45,17 @@ func (s *Service) Metrics() (data []byte) {
 	// 	return make([]byte, 0)
 	// }
 	data = make([]byte, 0)
+	return
+}
+
+func (s *Service) Ext() (data interface{}) {
+	data = "Without Ext"
+	return
+}
+
+func (s *Service) OnVersion(data []byte) {
+	// data 为版本实体的序列化数据
+	moduleVersion.CheckVersion(data)
 	return
 }
 
@@ -59,7 +69,6 @@ func (s *Service) Start(c *conf.Setting) (port int, err error) {
 }
 
 func (s *Service) Stop() {
-	go serverProxy.Stop()
 	// 解除注册
 	time.Sleep(300 * time.Millisecond)
 	os.Exit(0)

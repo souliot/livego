@@ -5,10 +5,9 @@ import (
 	"os"
 	e "public/entities"
 	"public/libs_go/darwinfslib"
-	"public/libs_go/gateway/service"
 	"public/libs_go/servicelib"
-	"public/libs_go/socketlib"
-	"public/models/command"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/astaxie/beego/logs"
@@ -18,55 +17,60 @@ var moduleVersion = new(ModuleVersion)
 var darwinfsProxy = new(darwinfslib.Darwinfs)
 
 type ModuleVersion struct {
-	armNode string
-	amdNode string
-}
-
-//Handle Handle
-func (m *ModuleVersion) handle(packet *socketlib.Packet) {
-	switch packet.Method {
-	case command.SendVersion:
-		m.SendVersion(packet)
-	}
+	Version *e.Version
 }
 
 //SendVersion SendVersion
-func (m *ModuleVersion) SendVersion(packet *socketlib.Packet) {
-	version := new(e.Version)
-	err := json.Unmarshal(packet.Content, version)
-	if err == nil {
-		versionPath := "http://" + globals.GateWay + "/v1/file/" + service.DefaultRegion + loginAccount.LastVersion.Path
-		logs.Info("发现新版本", loginAccount.LastVersion.Code, versionPath)
-		err = darwinfsProxy.DownloadFile(versionPath, "update.zip")
-		if err == nil {
-			logs.Info("准备升级,程序退出")
-			close()
-		} else {
-			logs.Error("升级失败", err)
-		}
-	} else {
-		logs.Error("升级指令异常", err)
+func (m *ModuleVersion) CheckVersion(packet []byte) {
+	if len(packet) <= 0 {
+		return
 	}
-}
+	ver := new(e.Version)
+	err := json.Unmarshal(packet, ver)
+	if err != nil {
+		logs.Error("版本升级异常", err)
+		return
+	}
 
-//CheckVersion CheckVersion
-func (m *ModuleVersion) CheckVersion() {
-	if loginAccount.LastVersion != nil && globals.GateWay != "" {
-		versionPath := "http://" + globals.GateWay + "/v1/file/" + service.DefaultRegion + loginAccount.LastVersion.Path
-		logs.Info("发现新版本", loginAccount.LastVersion.Code, versionPath)
-		err := darwinfsProxy.DownloadFile(versionPath, "update.zip")
-		if err == nil {
-			logs.Info("准备升级,程序退出")
-			close()
-		} else {
-			logs.Error("升级失败", err)
-		}
+	m.Version = ver
+
+	if !m.IsLow(version) {
+		return
+	}
+
+	versionPath := "http://" + globals.GateWay + "/v1/file/" + ver.RegionID + ver.Path
+	logs.Info("发现新版本", ver.Code, versionPath)
+	err = darwinfsProxy.DownloadFile(versionPath, "update.zip")
+	if err == nil {
+		logs.Info("准备升级,程序退出")
+		close()
+	} else {
+		logs.Error("升级失败", err)
 	}
 }
 
 func close() {
 	go servicelib.Stop(Ser)
 	logs.Info("关闭程序")
-	os.Exit(0)
 	time.Sleep(300 * time.Millisecond)
+	os.Exit(0)
+}
+
+func (m *ModuleVersion) IsLow(code string) (isLow bool) {
+	isLow = false
+
+	curCodes := strings.Split(code, ".")
+	codes := strings.Split(m.Version.Code, ".")
+	for i := 0; i < len(curCodes); i++ {
+		if len(codes) > i {
+			curCode, _ := strconv.Atoi(curCodes[i])
+			code, _ := strconv.Atoi(codes[i])
+			if curCode < code {
+				isLow = true
+				break
+			}
+		}
+	}
+
+	return
 }
