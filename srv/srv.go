@@ -80,6 +80,7 @@ func NewConfig() *conf.Config {
 		EtcdEndpoints:  configure.Config.GetStringSlice("etcdendpoints"),
 		ServiceType:    serviceType,
 		MonitorService: true,
+		Version:        version,
 		// LogPath:        "logs",                 // default 'logs'
 	}
 }
