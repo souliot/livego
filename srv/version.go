@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/astaxie/beego/logs"
+	"public/libs_go/logs"
 )
 
 var moduleVersion = new(ModuleVersion)

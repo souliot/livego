@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/astaxie/beego/logs"
+	"public/libs_go/logs"
 )
 
 const (

@@ -12,7 +12,7 @@ import (
 
 	"livego/av"
 
-	"github.com/astaxie/beego/logs"
+	"public/libs_go/logs"
 	cmap "github.com/orcaman/concurrent-map"
 )
 

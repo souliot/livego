@@ -9,7 +9,7 @@ import (
 	"livego/protocol/rtmp/cache"
 	"livego/protocol/rtmp/rtmprelay"
 
-	"github.com/astaxie/beego/logs"
+	"public/libs_go/logs"
 	cmap "github.com/orcaman/concurrent-map"
 )
 

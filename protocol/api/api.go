@@ -11,7 +11,7 @@ import (
 	"livego/protocol/rtmp"
 	"livego/protocol/rtmp/rtmprelay"
 
-	"github.com/astaxie/beego/logs"
+	"public/libs_go/logs"
 	jwtmiddleware "github.com/auth0/go-jwt-middleware"
 	"github.com/dgrijalva/jwt-go"
 )

@@ -11,7 +11,7 @@ import (
 	"livego/container/ts"
 	"livego/parser"
 
-	"github.com/astaxie/beego/logs"
+	"public/libs_go/logs"
 )
 
 const (

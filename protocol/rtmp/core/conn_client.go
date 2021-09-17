@@ -12,7 +12,7 @@ import (
 	"livego/av"
 	"livego/protocol/amf"
 
-	"github.com/astaxie/beego/logs"
+	"public/libs_go/logs"
 )
 
 var (

@@ -5,7 +5,7 @@ import (
 
 	"livego/utils/uid"
 
-	"github.com/astaxie/beego/logs"
+	"public/libs_go/logs"
 	"github.com/go-redis/redis/v7"
 	"github.com/patrickmn/go-cache"
 )

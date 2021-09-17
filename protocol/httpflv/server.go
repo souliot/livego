@@ -9,7 +9,7 @@ import (
 	"livego/av"
 	"livego/protocol/rtmp"
 
-	"github.com/astaxie/beego/logs"
+	"public/libs_go/logs"
 )
 
 type Server struct {

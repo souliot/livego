@@ -9,7 +9,7 @@ import (
 
 	"livego/srv"
 
-	"github.com/astaxie/beego/logs"
+	"public/libs_go/logs"
 )
 
 var VERSION = "master"
@@ -34,7 +34,7 @@ func main() {
 	`)
 
 	srv.Scfg = srv.NewConfig()
-	err := servicelib.WatchPreSetting(srv.Ser, srv.Scfg)
+	err := servicelib.Run(srv.Ser, srv.Scfg)
 	if err != nil {
 		logs.Error(err)
 		return

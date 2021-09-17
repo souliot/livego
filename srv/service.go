@@ -8,7 +8,7 @@ import (
 	"livego/protocol/rtmp"
 	"net"
 
-	"github.com/astaxie/beego/logs"
+	"public/libs_go/logs"
 )
 
 func startHls() *hls.Server {

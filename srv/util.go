@@ -10,8 +10,9 @@ import (
 
 	"public/libs_go/servicelib"
 
-	"github.com/astaxie/beego/logs"
-	"github.com/coreos/etcd/clientv3"
+	"public/libs_go/logs"
+
+	clientv3 "go.etcd.io/etcd/client/v3"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

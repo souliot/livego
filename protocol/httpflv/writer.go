@@ -10,7 +10,7 @@ import (
 	"livego/utils/pio"
 	"livego/utils/uid"
 
-	"github.com/astaxie/beego/logs"
+	"public/libs_go/logs"
 )
 
 const (

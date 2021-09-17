@@ -8,7 +8,7 @@ import (
 	"livego/configure"
 	"livego/protocol/rtmp/core"
 
-	"github.com/astaxie/beego/logs"
+	"public/libs_go/logs"
 )
 
 type StaticPush struct {

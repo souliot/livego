@@ -6,7 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/astaxie/beego/logs"
+	"public/libs_go/logs"
+
 	"github.com/kr/pretty"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
@@ -58,7 +59,7 @@ type ServerCfg struct {
 
 // default config
 var defaultConf = ServerCfg{
-	ConfigFile:      "livego.yaml",
+	ConfigFile:      "config.yaml",
 	RTMPAddr:        ":1935",
 	HTTPFLVAddr:     ":7001",
 	HLSAddr:         ":7002",
@@ -120,7 +121,7 @@ func init() {
 	pflag.String("httpflv_addr", ":7001", "HTTP-FLV server listen address")
 	pflag.String("hls_addr", ":7002", "HLS server listen address")
 	pflag.String("api_addr", ":8090", "HTTP manage interface server listen address")
-	pflag.String("config_file", "livego.yaml", "configure filename")
+	pflag.String("config_file", "config.yaml", "configure filename")
 	pflag.String("level", "debug", "Log level")
 	pflag.Bool("hls_keep_after_end", false, "Maintains the HLS after the stream ends")
 	pflag.String("flv_dir", "tmp", "output flv file at flvDir/APP/KEY_TIME.flv")
