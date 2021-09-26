@@ -1,7 +1,5 @@
 api_addr: :8090
 config_file: livego.yaml
-etcdendpoints:
-  - 192.168.0.4:2379
 flv_dir: tmp
 gop_num: 1
 hls_addr: :7002

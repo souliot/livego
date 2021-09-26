@@ -43,6 +43,9 @@ func (s *Service) GlobalSetting() interface{} {
 func (s *Service) OnGlobalSetting(c interface{}) {
 	globals = c.(*e.ServerSetting)
 	etcdEndPoints := configure.Config.GetStringSlice("etcdendpoints")
+	if len(etcdEndPoints) <= 0 {
+		etcdEndPoints = Scfg.EtcdEndpoints
+	}
 	initEtcd(etcdEndPoints)
 	return
 }
